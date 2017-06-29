@@ -11,7 +11,7 @@ echo new class() extends Init // Inherits property from class Init
     $in = [
         'm'     => 'home',  // Method [home|about|contact]
     ],
-    $out = [
+    $out = [ // Declaring array values
         'doc'   => 'SPE::02',
         'css'   => '',
         'nav1'  => '',
@@ -19,29 +19,29 @@ echo new class() extends Init // Inherits property from class Init
         'main'  => 'Error: missing page!',
         'foot'  => 'Copyright (C) 2015 Mark Constable (AGPL-3.0)',
     ],
-    $nav1 = [
+    $nav1 = [ // Declaring array values
         ['Home', '?m=home'],
         ['About', '?m=about'],
         ['Contact', '?m=contact'],
     ];
 };
 
-class Init
+class Init // Declaring class Init
 {
     public function __construct()
     {
-        foreach ($this->in as $k => $v)
+        foreach ($this->in as $k => $v) // Loop through array in(array name) as set as key value
             $this->in[$k] = isset($_REQUEST[$k])
-                ? htmlentities(trim($_REQUEST[$k])) : $v;
+                ? htmlentities(trim($_REQUEST[$k])) : $v; // Filter key values
 
         if (method_exists($this, $this->in['m']))
-            $this->out['main'] = $this->{$this->in['m']}();
+            $this->out['main'] = $this->{$this->in['m']}(); // if exist snd set ok, then display as main
 
         foreach ($this->out as $k => $v)
             $this->out[$k] = method_exists($this, $k) ? $this->$k() : $v;
     }
 
-    public function __toString() : string
+    public function __toString() : string // Invoking function html
     {
         return $this->html();
     }
