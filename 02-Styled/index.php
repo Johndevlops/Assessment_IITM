@@ -2,9 +2,9 @@
 // index.php 20150101 - 20170302
 // Copyright (C) 2015-2017 Mark Constable <markc@renta.net> (AGPL-3.0)
 
-declare(strict_types = 1);
+declare(strict_types = 1); // for function call
 
-echo new class() extends Init
+echo new class() extends Init // Inherits property from class Init
 {
     protected
     $email = 'markc@renta.net',
@@ -46,7 +46,7 @@ class Init
         return $this->html();
     }
 
-    private function css() : string
+    private function css() : string // Defining styles
     {
         return '
     <link href="//fonts.googleapis.com/css?family=Roboto:100,300,400,500,300italic" rel="stylesheet" type="text/css">
@@ -102,7 +102,7 @@ a.active:hover { background-color: #2295f8; }
         </style>';
     }
 
-    private function nav1() : string
+    private function nav1() : string // Loading navigation
     {
         $m = '?m='.$this->in['m'];
         return '
@@ -114,7 +114,7 @@ a.active:hover { background-color: #2295f8; }
       </nav>';
     }
 
-    private function head() : string
+    private function head() : string // Loading header
     {
         return '
     <header>
@@ -122,14 +122,14 @@ a.active:hover { background-color: #2295f8; }
     </header>';
     }
 
-    private function main() : string
+    private function main() : string // Loading main page content
     {
         return '
     <main>' . $this->out['main'] . '
     </main>';
     }
 
-    private function foot() : string
+    private function foot() : string // Loading page footer
     {
         return '
     <footer>
@@ -137,9 +137,9 @@ a.active:hover { background-color: #2295f8; }
     </footer>';
     }
 
-    private function html() : string
+    private function html() : string // Defining html contents
     {
-        extract($this->out, EXTR_SKIP);
+        extract($this->out, EXTR_SKIP); // extracting array values of out(array name)
         return '<!DOCTYPE html>
 <html lang="en">
   <head>
@@ -155,7 +155,7 @@ a.active:hover { background-color: #2295f8; }
 
     private function home() : string
     {
-        $this->nav1 = array_merge($this->nav1, [
+        $this->nav1 = array_merge($this->nav1, [ // merging values along with values in nav1(array name)
             ['Project Page', 'https://github.com/markc/spe/tree/master/02-Styled'],
             ['Issue Tracker', 'https://github.com/markc/spe/issues'],
         ]);
@@ -167,7 +167,7 @@ Comments and pull requests are most welcome via the Issue Tracker link above.
       </p>';
     }
 
-    private function about() : string
+    private function about() : string // Defining about content
     {
         return '
       <h2>About</h2>
@@ -178,7 +178,7 @@ design and some of the new features of PHP7.
       </p>';
     }
 
-    private function contact() : string
+    private function contact() : string // Defining contact section content
     {
         return '
       <h2>Email Contact Form</h2>
@@ -191,8 +191,9 @@ design and some of the new features of PHP7.
         </p>
       </form>
       <script>
-function mailform(form) {
-    location.href = "mailto:' . $this->email . '"
+      /* Mailing function */
+function mailform(form) { 
+    location.href = "mailto:' . $this->email . '" 
         + "?subject=" + encodeURIComponent(form.subject.value)
         + "&body=" + encodeURIComponent(form.message.value);
     form.subject.value = "";
